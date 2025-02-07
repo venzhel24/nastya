@@ -1,17 +1,60 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fantazy лига по биатлону{% endblock %}</title>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <script src="{{ asset('js/modal.js') }}"></script>
+    <script src="{{ asset('js/formButton.js') }}"></script>
+
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Место для дополнительных стилей -->
+    {% block styles %}{% endblock %}
+</head>
+<body>
+<div class="background-image">
+    <header>
+        <nav class="header-nav">
+            <!-- Логотип слева -->
+            <div class="logo">
+                <a href="{{ path('app_home') }}">
+                    <img src="{{ asset('/img/logo.png') }}" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Кнопки в центре -->
+            <div class="centered-buttons">
+                <a href="{{ path('app_home') }}" class="btn">Главная</a>
+            </div>
+
+            <!-- Информация о пользователе справа -->
+            <div class="user-info-section">
+                {% if app.user %}
+                    <span class="user-info">{{ app.user.name }}</span>
+                    <a href="{{ path('app_logout') }}" class="btn">Выход</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="btn">Войти</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Fantazy лига по биатлону</p>
+    </footer>
+</div>
+</body>
 </html>

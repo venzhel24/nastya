@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Добро пожаловать на главную страницу!</h1>
+
+        {% if user %}
+            <div class="alert alert-success">
+                Вы вошли как: <strong>{{ user.email }}</strong>
+            </div>
+        {% endif %}
+
+        <p>
+            Это главная страница вашего приложения. Здесь вы можете отображать любую информацию,
+            доступную только авторизованным пользователям.
+        </p>
+
+        <a href="{{ path('app_logout') }}" class="btn btn-danger">Выйти</a>
+    </div>
+{% endblock %}

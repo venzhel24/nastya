@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ catalogItem.description }}{% endblock %}
+
+{% block content %}
+    <h1>{{ catalogItem.description }}</h1>
+
+    <table class="table">
+        <tr>
+            <th>Описание</th>
+            <td>{{ catalogItem.description }}</td>
+        </tr>
+        <tr>
+            <th>Тип</th>
+            <td>{{ catalogItem.type }}</td>
+        </tr>
+        <tr>
+            <th>Преимущества</th>
+            <td>{{ catalogItem.advantages|join(', ') }}</td>
+        </tr>
+        <tr>
+            <th>Фото</th>
+            <td><img src="{{ asset('uploads/' ~ catalogItem.photoPath) }}" alt="Фото товара" width="150"></td>
+        </tr>
+        <tr>
+            <th>Производитель</th>
+            <td>{{ catalogItem.manufacturer ? catalogItem.manufacturer.name : 'Не указано' }}</td>
+        </tr>
+        <tr>
+            <th>Страна</th>
+            <td>{{ catalogItem.country ? catalogItem.country.name : 'Не указано' }}</td>
+        </tr>
+        <tr>
+            <th>Раздел</th>
+            <td>{{ catalogItem.section ? catalogItem.section.name : 'Не указан' }}</td>
+        </tr>
+        <tr>
+            <th>Дата публикации</th>
+            <td>{{ catalogItem.publishedAt|date('Y-m-d H:i') }}</td>
+        </tr>
+    </table>
+
+    <a href="{{ path('catalog_edit', {'id': catalogItem.id}) }}" class="btn btn-warning">Редактировать</a>
+    <a href="{{ path('catalog_index') }}" class="btn btn-secondary">Вернуться в каталог</a>
+{% endblock %}

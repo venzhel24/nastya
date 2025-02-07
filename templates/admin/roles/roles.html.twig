@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование ролей{% endblock %}
+
+{% block content %}
+    <h1>Редактирование ролей</h1>
+
+    <!-- Таблица с доступными ролями -->
+    <table>
+        <thead>
+        <tr>
+            <th>Роль</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for role in roles %}
+            <tr>
+                <td>{{ role.name }}</td>
+                <td>
+                    <a href="{{ path('edit_role', {'id': role.id}) }}" class="btn-table">Изменить</a>
+                    <a href="#" class="btn-table action-link"
+                       data-url="{{ path('delete_role', {'id': role.id}) }}"
+                       data-method="POST"
+                       data-confirm="Вы уверены, что хотите удалить эту роль?">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Кнопка для открытия модального окна -->
+    <button id="openModalBtn" class="btn-table">Добавить роль</button>
+
+    <!-- Модальное окно -->
+    <div id="roleModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <form method="post" action="{{ path('add_role') }}">
+                <label for="role_name">Название роли:</label>
+                <input type="text" id="role_name" name="role_name" required>
+
+                <button type="submit">Добавить роль</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

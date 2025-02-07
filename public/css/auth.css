@@ -1,0 +1,81 @@
+/* Общие стили для форм */
+form {
+    background-color: #000; /* Черный фон */
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px; /* Максимальная ширина формы */
+    margin: 0 auto; /* Центрируем форму */
+    color: #FFD700; /* Желтый текст */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для заголовков форм */
+h1 {
+    text-align: center;
+    color: #FFD700;
+    margin-bottom: 20px;
+}
+
+/* Стили для меток полей */
+label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+    color: #FFD700;
+}
+
+/* Стили для полей ввода */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    background-color: #333; /* Темно-серый фон для полей */
+    color: #FFD700; /* Желтый текст */
+    border: 2px solid #FFD700; /* Желтая обводка */
+    border-radius: 5px; /* Скругленные края */
+    padding: 10px;
+    width: 95%;
+    margin: auto auto 15px auto;
+    font-size: 14px;
+}
+
+/* Эффект при фокусе на поле ввода */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #FFD700;
+    outline: none; /* Убираем стандартную обводку */
+    background-color: #222; /* Темно-серый фон при фокусе */
+}
+
+/* Стили для кнопки отправки */
+button[type="submit"] {
+    background-color: #FFD700; /* Желтый фон */
+    color: #000; /* Черный текст */
+    border: 2px solid #FFD700;
+    border-radius: 5px;
+    padding: 12px 20px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+/* Эффекты при наведении на кнопку */
+button[type="submit"]:hover {
+    background-color: #000;
+    color: #FFD700;
+    transform: scale(1.05);
+}
+
+/* Стили для ошибок */
+input:invalid {
+    border-color: #FF4500; /* Оранжевая обводка для ошибок */
+}
+
+input:valid {
+    border-color: #84ff00; /* Желтая обводка для правильных значений */
+}

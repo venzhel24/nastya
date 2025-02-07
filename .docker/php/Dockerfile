@@ -5,10 +5,11 @@ RUN apt-get update && apt-get install -y \
     libpq-dev libzip-dev zip unzip git curl \
     libxml2-dev libcurl4-openssl-dev libonig-dev \
     libfreetype6-dev libjpeg62-turbo-dev libpng-dev libwebp-dev \
-    libicu-dev libexif-dev \
+    libicu-dev libexif-dev librabbitmq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install pdo pdo_pgsql zip mbstring curl soap dom opcache gd intl exif bcmath \
-    && docker-php-ext-enable pdo_pgsql opcache bcmath
+    && pecl install redis amqp \
+    && docker-php-ext-enable redis pdo_pgsql opcache bcmath amqp
 
 # Установка Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

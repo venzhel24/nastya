@@ -1,0 +1,76 @@
+/* Таблица */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 5px auto; /* Вместо фиксированных отступов используем авто */
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+table th {
+    font-weight: bold;
+    font-size: 16px;
+    /*background-color: rgba(255,255,255,0.8);*/
+    color: #fff;
+    background-color: rgba(230, 184, 0, 1);
+    padding: 1rem;
+    text-shadow: 1px 1px 1px #000;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+table td {
+    font-size: 14px;
+    text-align: center;
+    background-color: rgba(3, 3, 3, 1);
+    border: 1px solid rgba(230, 184, 0, 1);
+    color: #fff;
+    padding: 8px 10px;
+}
+
+table td a:hover{
+    color: #C19B03;
+}
+
+table td img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Общие стили для кнопок и ссылок */
+.btn-table {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFD700;
+    background-color: #000;
+    border: 2px solid #FFD700;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Дополнительные стили для кнопок внутри формы */
+.btn-table[type="submit"] {
+    border: 2px solid #FFD700;
+}
+
+/* Эффект при наведении */
+.btn-table:hover {
+    background-color: #FFD700;
+    color: #000;
+    transform: scale(1.05);
+}
+
+/* Эффект при клике */
+.btn-table:active {
+    transform: scale(0.95);
+}
+

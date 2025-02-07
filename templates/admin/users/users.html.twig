@@ -1,0 +1,74 @@
+{# templates/admin/users/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block content %}
+    <h1>Пользователи</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Имя</th>
+            <th>Роли</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('admin_edit_user', { id: user.id }) }}" class="btn-table">{{ user.id }}</a></td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.getRoles()|map(role => role|replace({'ROLE_': ''}))|join(', ') }}</td>
+                <td>
+                    <a href="#" class="btn-table action-link"
+                       data-url="{{ path('admin_delete_user', {'id': user.id}) }}"
+                       data-method="POST"
+                       data-confirm="Вы уверены, что хотите удалить пользователя?">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Кнопка для открытия модального окна -->
+    <button id="openModalBtn" class="btn-table">Добавить</button>
+
+    <!-- Модальное окно -->
+    <div id="roleModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <form method="post" action="{{ path('admin_add_user') }}">
+                <label for="name">Логин:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label>Роли:</label>
+                <div class="checkbox-group">
+                    {% for group in groups %}
+                        <div class="form-check d-inline-block mr-3">
+                            <input type="checkbox" name="roles[]" id="role_{{ group.id }}" value="{{ group.id }}" class="form-check-input">
+                            <label for="role_{{ group.id }}" class="form-check-label">
+                                {{ group.name|replace({'ROLE_': ''}) }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

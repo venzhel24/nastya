@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+table th, table td {
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    background: #000;
+    color: #FFD700;
+    padding: 10px 0;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #FFD700;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.centered-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+button, .btn {
+    display: inline-block;
+    background: #FFD700;
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid #FFD700;
+    border-radius: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background: #000;
+    color: #FFD700;
+    transform: scale(1.1);
+    border-color: #000;
+}
+
+.user-info-section {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.user-info {
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+footer {
+    background: #000;
+    color: #FFD700;
+    text-align: center;
+    padding: 2px 0;
+    border-top: 3px solid #FFD700;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    min-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+/* Фоновая картинка */
+.background-image {
+    background-image: url('../img/antholz.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 1000px;
+    padding: 20px;
+    min-height: calc(100vh - 150px);
+    max-height: 100%;
+}
+
+/* Стили для модального окна */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1; /* Ожидаем сверху */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Полупрозрачный фон */
+}
+
+/* Контент модального окна */
+.modal-content {
+    background-color: rgba(255, 255, 255, 0);
+    margin: 15% auto;
+    padding: 50px;
+    width: 30%;
+}
+
+/* Кнопка закрытия */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Сбрасываем все стили для формы */
+.clean-form {
+    all: unset; /* Убирает все стили */
+    display: block; /* Сбрасывает inline-стиль */
+}
+
+/* Стили только для кнопок */
+.btn-form {
+    all: unset; /* Убирает все стили */
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    background-color: #FFD700;
+    border: 2px solid #FFD700;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* При наведении */
+.btn-form:hover {
+    background-color: #000;
+    color: #FFD700;
+    transform: scale(1.05);
+}
+
+/* При клике */
+.btn-form:active {
+    transform: scale(0.95);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 10px;
+    background-color: #000; /* Черный фон */
+    border-radius: 8px;
+}
+
+.checkbox-group .form-check {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.checkbox-group .form-check-input {
+    width: 20px;
+    height: 20px;
+    accent-color: #FFD700; /* Золотой цвет чекбоксов */
+    cursor: pointer;
+}
+
+.checkbox-group .form-check-label {
+    color: #FFD700; /* Золотой текст */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.checkbox-group .form-check-input:checked {
+    box-shadow: 0 0 5px #FFD700;
+}

@@ -7,12 +7,18 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
+        "async-aws/s3": "^2.7",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.13",
-        "doctrine/doctrine-migrations-bundle": "^3.4",
+        "doctrine/doctrine-migrations-bundle": "*",
         "doctrine/orm": "^3.3",
+        "league/flysystem-aws-s3-v3": "^3.29",
+        "league/flysystem-bundle": "*",
+        "nelmio/api-doc-bundle": "^4.36",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.0",
+        "symfony/amqp-messenger": "7.2.*",
         "symfony/asset": "7.2.*",
         "symfony/asset-mapper": "7.2.*",
         "symfony/console": "7.2.*",
@@ -25,12 +31,14 @@
         "symfony/http-client": "7.2.*",
         "symfony/intl": "7.2.*",
         "symfony/mailer": "7.2.*",
+        "symfony/messenger": "7.2.*",
         "symfony/mime": "7.2.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "7.2.*",
         "symfony/process": "7.2.*",
         "symfony/property-access": "7.2.*",
         "symfony/property-info": "7.2.*",
+        "symfony/redis-messenger": "7.2.*",
         "symfony/runtime": "7.2.*",
         "symfony/security-bundle": "7.2.*",
         "symfony/serializer": "7.2.*",
@@ -43,7 +51,8 @@
         "symfony/web-link": "7.2.*",
         "symfony/yaml": "7.2.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "zircote/swagger-php": "^5.0"
     },
     "config": {
         "allow-plugins": {
@@ -97,6 +106,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^4.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "7.2.*",
         "symfony/css-selector": "7.2.*",

@@ -1,0 +1,21 @@
+flysystem:
+  storages:
+    minio.storage:
+      adapter: 'aws'
+      options:
+        client: 'minio.client'
+        bucket: '%env(AWS_BUCKET)%'
+    # Дополнительные хранилища, если нужно
+
+services:
+  minio.client:
+    class: Aws\S3\S3Client
+    arguments:
+      -
+        version: 'latest'
+        endpoint: '%env(AWS_ENDPOINT)%'
+        region: '%env(AWS_REGION)%'
+        credentials:
+          key: '%env(AWS_ACCESS_KEY_ID)%'
+          secret: '%env(AWS_SECRET_ACCESS_KEY)%'
+        use_path_style_endpoint: true
