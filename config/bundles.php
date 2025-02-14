@@ -16,4 +16,5 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
     League\FlysystemBundle\FlysystemBundle::class => ['all' => true],
+    Snc\RedisBundle\SncRedisBundle::class => ['all' => true],
 ];

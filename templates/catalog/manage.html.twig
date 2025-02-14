@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование товара{% endblock %}
+
+{% block content %}
+    <h1>Редактирование товара</h1>
+
+    <div class="form-container">
+        {{ form_start(form, { 'action': path('catalog_update', {'id': item.id}) }) }}
+
+{#        <input type="hidden" name="_method" value="PUT">#}
+
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            <div class="form-input">{{ form_widget(form.name) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            <div class="form-input">{{ form_widget(form.description) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.type) }}
+            <div class="form-input">{{ form_widget(form.type) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.advantages) }}
+            <div class="form-input">{{ form_widget(form.advantages) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.photo) }}
+            <div class="form-input">{{ form_widget(form.photo) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.manufacturers) }}
+            <div class="form-input">{{ form_widget(form.manufacturers) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.country) }}
+            <div class="form-input">{{ form_widget(form.country) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.section) }}
+            <div class="form-input">{{ form_widget(form.section) }}</div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.publishedAt) }}
+            <div class="form-input">{{ form_widget(form.publishedAt) }}</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        {{ form_end(form) }}
+    </div>
+
+    <a href="{{ path('catalog_index') }}" class="btn btn-secondary mt-3">Назад к каталогу</a>
+{% endblock %}

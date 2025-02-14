@@ -1,0 +1,44 @@
+.profile-container {
+    background-color: #000000;
+    color: #FFD700;
+    padding: 30px;
+    padding-bottom: 50px;
+    border-radius: 10px;
+}
+
+/* Заголовок страницы */
+.profile-container h1 {
+    color: #FFD700;
+    text-align: center;
+}
+
+/* Блоки с информацией */
+.profile-container p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Стили для кнопки редактирования */
+.profile-container .btn-primary {
+    background-color: #FFD700;
+    border-color: #FFD700;
+    color: #000000;
+}
+
+.profile-container .btn-primary:hover {
+    background-color: #000000;
+    color: #FFD700;
+    border-color: #FFD700;
+}
+
+.profile-container .btn-primary:focus {
+    background-color: #FFD700;
+    border-color: #FFD700;
+    color: #000000;
+}
+
+.profile-container .btn-primary:active {
+    background-color: #FFD700;
+    border-color: #FFD700;
+    color: #000000;
+}

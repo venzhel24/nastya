@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Entity\User;
+use App\Form\UserType;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +42,7 @@ class UserController extends AbstractController
         $email = $request->request->get('email');
         $name = $request->request->get('name');
         $password = $request->request->get('password');
-        $groupIds = $request->request->get('groups', []);
+        $groupIds = $request->request->all('groups');
 
         if ($email && $name && $password) {
             $this->userService->addUser($email, $name, $password, $groupIds);
@@ -107,4 +109,17 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('admin_users');
     }
+
+    #[Route('/profile', name: 'profile')]
+    public function profile(Security $security, EntityManagerInterface $em): Response
+    {
+        $user = $security->getUser();
+        $roles = $user->getRoles();
+
+        return $this->render('auth/user.html.twig', [
+            'user' => $user,
+            'roles' => $roles,
+        ]);
+    }
+
 }

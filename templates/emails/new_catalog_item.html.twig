@@ -1,0 +1,7 @@
+<h1>Добавлен новый элемент каталога</h1>
+
+<p><strong>Название:</strong> {{ item.name }}</p>
+<p><strong>Описание:</strong> {{ item.description }}</p>
+<p><strong>Дата публикации:</strong> {{ item.publishedAt|date('d.m.Y H:i') }}</p>
+
+<p><a href="{{ path('catalog_edit', { id: item.id }) }}">Редактировать</a></p>

@@ -4,18 +4,16 @@
 
 {% block content %}
     <h1>Login</h1>
-    <form method="post" action="{{ path('app_login_check') }}">
+    <form method="post" action="{{ path('app_login') }}">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        <label for="inputUser">Username</label>
-        <input type="text" value="{{ last_username }}" name="_username" id="inputUser" required autofocus>
+        <label for="inputName">Username</label>
+        <input type="text" value="{{ last_username }}" name="name" id="inputName" required autofocus>
 
         <label for="inputPassword">Password</label>
-        <input type="password" name="_password" id="inputPassword" required>
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="password" name="password" id="inputPassword" required>
 
         <button type="submit">Login</button>
     </form>

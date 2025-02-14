@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login Check{% endblock %}
+
+{% block content %}
+    <h1>Проверка учетных данных...</h1>
+    <p>Пожалуйста, подождите. Мы проверяем вашу учетную запись.</p>
+
+    <form id="loginForm" method="post" action="{{ path('app_login_check') }}">
+        <input type="hidden" name="_username" value="{{ name }}">
+        <input type="hidden" name="_password" value="{{ password }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    </form>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('loginForm').submit();
+        }, 3000);
+    </script>
+{% endblock %}

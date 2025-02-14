@@ -3,43 +3,60 @@
 {% block title %}{{ catalogItem.description }}{% endblock %}
 
 {% block content %}
-    <h1>{{ catalogItem.description }}</h1>
+    <h1>{{ catalogItem.name }}</h1>
 
     <table class="table">
         <tr>
-            <th>Описание</th>
+            <th>{{ labels.description }}</th>
             <td>{{ catalogItem.description }}</td>
         </tr>
         <tr>
-            <th>Тип</th>
-            <td>{{ catalogItem.type }}</td>
+            <th>{{ labels.type }}</th>
+            <td>{{ catalogItem.type.getLabel() }}</td>
         </tr>
         <tr>
-            <th>Преимущества</th>
+            <th>{{ labels.advantages }}</th>
             <td>{{ catalogItem.advantages|join(', ') }}</td>
         </tr>
         <tr>
-            <th>Фото</th>
-            <td><img src="{{ asset('uploads/' ~ catalogItem.photoPath) }}" alt="Фото товара" width="150"></td>
+            <th>{{ labels.photo }}</th>
+            <td>
+                {% if catalogItem.photoPath %}
+                    <img src="{{ catalogItem.photoPath }}" alt="Фото товара" width="150">
+                {% else %}
+                    Нет фото
+                {% endif %}
+            </td>
         </tr>
         <tr>
-            <th>Производитель</th>
-            <td>{{ catalogItem.manufacturer ? catalogItem.manufacturer.name : 'Не указано' }}</td>
+            <th>{{ labels.manufacturers }}</th>
+            <td>
+                {% if catalogItem.manufacturers|length > 0 %}
+                    {{ catalogItem.manufacturers[0].name }}
+                {% else %}
+                    Не указано
+                {% endif %}
+            </td>
         </tr>
         <tr>
-            <th>Страна</th>
+            <th>{{ labels.country }}</th>
             <td>{{ catalogItem.country ? catalogItem.country.name : 'Не указано' }}</td>
         </tr>
         <tr>
-            <th>Раздел</th>
+            <th>{{ labels.section }}</th>
             <td>{{ catalogItem.section ? catalogItem.section.name : 'Не указан' }}</td>
         </tr>
         <tr>
-            <th>Дата публикации</th>
+            <th>{{ labels.publishedAt }}</th>
             <td>{{ catalogItem.publishedAt|date('Y-m-d H:i') }}</td>
         </tr>
     </table>
 
-    <a href="{{ path('catalog_edit', {'id': catalogItem.id}) }}" class="btn btn-warning">Редактировать</a>
     <a href="{{ path('catalog_index') }}" class="btn btn-secondary">Вернуться в каталог</a>
+    {% if is_granted('ROLE_CONTENT') or is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('catalog_edit', {'id': catalogItem.id}) }}" class="btn btn-warning">Изменить</a>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('property_names_edit') }}" class="btn btn-info mb-3">Изменить свойства</a>
+    {% endif %}
 {% endblock %}

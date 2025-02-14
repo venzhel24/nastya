@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+        <h1>Профиль</h1>
+
+        <div>
+            <p><strong>Имя:</strong> {{ user.name }}</p>
+            <p><strong>Электронная почта:</strong> {{ user.email }}</p>
+            <p><strong>Роли:</strong>
+                {% for role in roles %}
+                    <span>{{ role }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+
+            <a href="{{ path('admin_edit_user', { id: user.id }) }}" class="btn btn-primary">Изменить</a>
+        </div>
+    </div>
+{% endblock %}

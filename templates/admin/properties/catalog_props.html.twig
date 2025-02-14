@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование названий свойств{% endblock %}
+
+{% block content %}
+    <h1>Редактирование названий свойств</h1>
+
+    <form action="{{ path('property_names_edit') }}" method="post">
+    {% for key, label in labels %}
+            <div class="form-group">
+                <label for="{{ key }}">{{ key }}</label>
+                <input type="text" id="{{ key }}" name="{{ key }}" value="{{ label }}" class="form-control" required>
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary mt-3">Сохранить изменения</button>
+    </form>
+
+    <a href="{{ path('catalog_index') }}" class="btn btn-secondary mt-3">Вернуться в каталог</a>
+{% endblock %}

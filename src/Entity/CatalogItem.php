@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Enum\CatalogType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 
@@ -35,10 +37,15 @@ class CatalogItem
 
     #[ORM\ManyToMany(targetEntity: Manufacturer::class, inversedBy: 'catalogItems')]
     #[ORM\JoinTable(name: 'catalog_item_manufacturer')]
-    private ?array $manufacturers = [];
+    private Collection $manufacturers;
 
     #[ORM\ManyToOne(targetEntity: Country::class)]
     private ?Country $country = null;
+
+    public function __construct()
+    {
+        $this->manufacturers = new ArrayCollection();
+    }
 
     public function getCountry(): ?Country
     {
@@ -68,6 +75,13 @@ class CatalogItem
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -126,12 +140,12 @@ class CatalogItem
         return $this;
     }
 
-    public function getManufacturers(): ?array
+    public function getManufacturers(): Collection
     {
         return $this->manufacturers;
     }
 
-    public function setManufacturers(array $manufacturers): self
+    public function setManufacturers(Collection $manufacturers): self
     {
         $this->manufacturers = $manufacturers;
         return $this;
@@ -139,8 +153,8 @@ class CatalogItem
 
     public function addManufacturer(Manufacturer $manufacturer): self
     {
-        if (!in_array($manufacturer, $this->manufacturers, true)) {
-            $this->manufacturers[] = $manufacturer;
+        if (!$this->manufacturers->contains($manufacturer)) {
+            $this->manufacturers->add($manufacturer);
         }
 
         return $this;
@@ -148,7 +162,7 @@ class CatalogItem
 
     public function removeManufacturer(Manufacturer $manufacturer): self
     {
-        $this->manufacturers = array_filter($this->manufacturers, fn($m) => $m !== $manufacturer);
+        $this->manufacturers->removeElement($manufacturer);
         return $this;
     }
 

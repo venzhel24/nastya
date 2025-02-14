@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Добавление товара{% endblock %}
+
+{% block content %}
+    <h1>Добавление товара</h1>
+
+    <div class="form-container">
+        {{ form_start(form, { 'action': path('catalog_store'), 'attr': { 'enctype': 'multipart/form-data' } }) }}
+
+        <div>
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+
+        <div>
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+
+        <div class="checkbox-group">
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type) }}
+        </div>
+
+        <div class="checkbox-group">
+            {{ form_label(form.advantages) }}
+            {{ form_widget(form.advantages) }}
+        </div>
+
+        <div>
+            {{ form_label(form.photo) }}
+            {{ form_widget(form.photo) }}
+        </div>
+
+        <div class="checkbox-group">
+            {{ form_label(form.manufacturers) }}
+            {{ form_widget(form.manufacturers) }}
+        </div>
+
+        <div>
+            {{ form_label(form.country) }}
+            {{ form_widget(form.country) }}
+        </div>
+
+        <div>
+            {{ form_label(form.section) }}
+            {{ form_widget(form.section) }}
+        </div>
+
+        <div>
+            {{ form_label(form.publishedAt) }}
+            {{ form_widget(form.publishedAt) }}
+        </div>
+
+        <button type="submit" class="btn-form">Сохранить</button>
+
+        {{ form_end(form) }}
+    </div>
+
+    <a href="{{ path('catalog_index') }}" class="btn btn-secondary mt-3">Назад к каталогу</a>
+
+{% endblock %}

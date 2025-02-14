@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
 
 body, html {
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -21,13 +22,14 @@ table th, table td {
 }
 
 header {
+    height: 60px;
     background: #000;
     color: #FFD700;
     padding: 10px 0;
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-bottom: 3px solid #FFD700;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -94,7 +96,6 @@ footer {
     text-align: center;
     padding: 2px 0;
     border-top: 3px solid #FFD700;
-    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -228,4 +229,125 @@ main {
 
 .checkbox-group .form-check-input:checked {
     box-shadow: 0 0 5px #FFD700;
+}
+
+.form-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили заголовков формы */
+.form-container label {
+    display: block;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 5px;
+}
+
+/* Стили полей ввода */
+.form-container input[type="text"],
+.form-container textarea,
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #FFD700;
+    background-color: #2a2a2a;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+/* Фокус на поле */
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+    outline: none;
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px #FFD700;
+}
+
+/* Стили кнопок */
+.form-container button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: black;
+    color: #FFD700;
+    transform: scale(1.05);
+}
+
+/* Чекбоксы и радио-кнопки */
+.form-container .checkbox-group {
+    display: block; /* Каждый элемент на новой строке */
+    margin-bottom: 15px;
+}
+
+/* Для метки чекбокса */
+.form-container .checkbox-group label {
+    display: block; /* Метка на своей строке */
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 5px;
+}
+
+/* Для самих чекбоксов */
+.form-container .checkbox-group .form-check {
+    display: inline-block; /* Чекбоксы в ряд */
+    margin-right: 15px; /* Отступ между чекбоксами */
+}
+
+/* Чекбокс на одной строке */
+.form-container .checkbox-group input[type="checkbox"] {
+    accent-color: #FFD700;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-right: 5px; /* Отступ между чекбоксом и меткой */
+}
+
+/* Обновленная версия для чекбоксов в одну строку */
+.form-container .checkbox-group {
+    display: flex;
+    gap: 10px; /* Отступы между чекбоксами */
+    align-items: center; /* Выравнивание по вертикали */
+    flex-wrap: wrap; /* Для адаптивности */
+}
+
+/* Фото-загрузка */
+.form-container input[type="file"] {
+    border: none;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+}
+
+.form-container input[type="file"]::file-selector-button {
+    background-color: #FFD700;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-container input[type="file"]::file-selector-button:hover {
+    background-color: black;
+    color: #FFD700;
 }
