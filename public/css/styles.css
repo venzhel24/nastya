@@ -87,7 +87,16 @@ button:hover, .btn:hover {
 
 .user-info {
     font-weight: bold;
+    font-size: 16px;
+    color: #FFD700;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
     margin-right: 20px;
+}
+
+.user-info:hover {
+    color: #ff00d5;
+    text-decoration: none;
 }
 
 footer {

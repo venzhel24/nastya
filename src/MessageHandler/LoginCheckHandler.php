@@ -5,6 +5,7 @@ namespace App\MessageHandler;
 use App\Dto\LoginCheckMessage;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Psr\Log\LoggerInterface;
+use function PHPUnit\Framework\throwException;
 
 #[AsMessageHandler]
 readonly class LoginCheckHandler

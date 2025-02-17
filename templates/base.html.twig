@@ -34,12 +34,19 @@
             <!-- Кнопки в центре -->
             <div class="centered-buttons">
                 <a href="{{ path('app_home') }}" class="btn">Главная</a>
+                <a href="{{ path('catalog_index') }}" class="btn">Каталог</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin_users') }}" class="btn">Пользователи</a>
+                    <a href="{{ path('app_admin') }}" class="btn">Админ панель</a>
+                {% endif %}
             </div>
 
             <!-- Информация о пользователе справа -->
             <div class="user-info-section">
                 {% if app.user %}
-                    <span class="user-info">{{ app.user.name }}</span>
+                    <a href="{{ path('profile', { 'id': app.user.id }) }}" class="user-info">
+                        {{ app.user.name }}
+                    </a>
                     <a href="{{ path('app_logout') }}" class="btn">Выход</a>
                 {% else %}
                     <a href="{{ path('app_login') }}" class="btn">Войти</a>

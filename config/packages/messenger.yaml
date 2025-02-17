@@ -5,3 +5,4 @@ framework:
 
         routing:
             'App\Dto\LoginCheckMessage': async
+            'App\Dto\ClearCacheMessage': async

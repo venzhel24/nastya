@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Dto\LoginCheckMessage;
+use App\Dto\UserRequest;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Service\UserService;
@@ -33,14 +34,13 @@ class AuthController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         if ($request->isMethod('POST')) {
-            $name = $request->request->get('name');
-            $password = $request->request->get('password');
+            $user = UserRequest::fromRequest($request);
 
-            $userService->checkLogin($name, $password);
+            $userService->checkLogin($user);
 
             return $this->render('auth/login_wait.html.twig', [
-                'name' => $name,
-                'password' => $password,
+                'name' => $user->name,
+                'password' => $user->password,
             ]);
         }
 

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Админ-панель{% endblock %}
+
+{% block content %}
+    <h1>Админ-панель</h1>
+
+    <ul>
+        <li><a href="{{ path('property_names_edit') }}" class="btn btn-primary">Свойства каталога</a></li>
+        <li><a href="{{ path('admin_users') }}" class="btn btn-secondary">Пользователи</a></li>
+        <li><a href="{{ path('admin_roles') }}" class="btn btn-warning">Роли</a></li>
+    </ul>
+
+    <button id="clear-cache-btn" class="btn btn-danger"
+            data-url="{{ path('admin_clear_cache') }}">
+        Очистить кеш
+    </button>
+    <span id="cache-status" class="text-muted"></span>
+{% endblock %}

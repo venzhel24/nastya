@@ -19,7 +19,7 @@ class UserRequest
             email: $request->request->get('email', ''),
             name: $request->request->get('name', ''),
             password: $request->request->get('password'),
-            groupIds: $request->request->all('groups')
+            groupIds: $request->request->all('roles')
         );
     }
 
