@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\CatalogItem;
 use App\Form\CatalogItemType;
+use App\Service\CatalogLabelService;
 use App\Service\CatalogService;
-use App\Service\PropertyNameService;
 use App\Service\UploadService;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,18 +20,17 @@ class CatalogController extends AbstractController
     public function __construct(
         private readonly CatalogService $catalogService,
         private readonly UploadService $uploadService,
+        private readonly CatalogLabelService $labelService,
     ) {}
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/', name: 'catalog_index', methods: ['GET'])]
-    public function index(PropertyNameService $propertyNameService): Response
+    public function index(): Response
     {
         $catalogItems = $this->catalogService->getAllItems();
-
-        $labels = [
-            'description' => $propertyNameService->getDisplayName('description'),
-            'type' => $propertyNameService->getDisplayName('type'),
-            'publishedAt' => $propertyNameService->getDisplayName('publishedAt'),
-        ];
+        $labels = $this->labelService->getCatalogLabels();
 
         return $this->render('catalog/catalog.html.twig', compact('catalogItems', 'labels'));
     }
@@ -42,10 +42,12 @@ class CatalogController extends AbstractController
 
         return $this->render('catalog/add_form.html.twig', [
             'form' => $form->createView(),
-            'is_edit' => false,
         ]);
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     #[Route('/', name: 'catalog_store', methods: ['POST'])]
     public function store(Request $request): Response
     {
@@ -68,7 +70,6 @@ class CatalogController extends AbstractController
 
         return $this->render('catalog/form.html.twig', [
             'form' => $form->createView(),
-            'is_edit' => false,
         ]);
     }
 
@@ -76,10 +77,8 @@ class CatalogController extends AbstractController
     public function edit(CatalogItem $item): Response
     {
         $form = $this->createForm(CatalogItemType::class, $item);
-
         return $this->render('catalog/manage.html.twig', [
             'form' => $form->createView(),
-            'is_edit' => true,
             'item' => $item,
         ]);
     }
@@ -100,25 +99,14 @@ class CatalogController extends AbstractController
 
         return $this->render('catalog/manage.html.twig', [
             'form' => $form->createView(),
-            'is_edit' => true,
             'item' => $item,
         ]);
     }
 
     #[Route('/{id}', name: 'catalog_show', methods: ['GET'])]
-    public function show(CatalogItem $catalogItem, PropertyNameService $propertyNameService): Response
+    public function show(CatalogItem $catalogItem): Response
     {
-        $labels = [
-            'description' => $propertyNameService->getDisplayName('description'),
-            'type' => $propertyNameService->getDisplayName('type'),
-            'advantages' => $propertyNameService->getDisplayName('advantages'),
-            'photo' => $propertyNameService->getDisplayName('photoPath'),
-            'manufacturers' => $propertyNameService->getDisplayName('manufacturers'),
-            'country' => $propertyNameService->getDisplayName('country'),
-            'section' => $propertyNameService->getDisplayName('section'),
-            'publishedAt' => $propertyNameService->getDisplayName('publishedAt'),
-        ];
-
+        $labels = $this->labelService->getCatalogItemLabels();
         return $this->render('catalog/show.html.twig', compact('catalogItem', 'labels'));
     }
 
