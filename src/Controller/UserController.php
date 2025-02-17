@@ -2,13 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Group;
-use App\Entity\User;
-use App\Form\UserType;
+use App\Dto\UserRequest;
 use App\Service\UserService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,19 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     private UserService $userService;
-    private EntityManagerInterface $em;
 
-    public function __construct(UserService $userService, EntityManagerInterface $em)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->em = $em;
     }
 
     #[Route('/admin/users', name: 'admin_users')]
     public function index(): Response
     {
-        $users = $this->em->getRepository(User::class)->findAll();
-        $groups = $this->em->getRepository(Group::class)->findAll();
+        $users = $this->userService->getAllUsers();
+        $groups = $this->userService->getAllGroups();
 
         return $this->render('admin/users/users.html.twig', [
             'users' => $users,
@@ -39,81 +33,63 @@ class UserController extends AbstractController
     #[Route('/admin/users/add', name: 'admin_add_user', methods: ['POST'])]
     public function add(Request $request): Response
     {
-        $email = $request->request->get('email');
-        $name = $request->request->get('name');
-        $password = $request->request->get('password');
-        $groupIds = $request->request->all('groups');
+        $userRequest = UserRequest::fromRequest($request);
 
-        if ($email && $name && $password) {
-            $this->userService->addUser($email, $name, $password, $groupIds);
+        try {
+            $this->userService->addUser($userRequest);
             $this->addFlash('success', 'Пользователь успешно добавлен!');
-            return $this->redirectToRoute('admin_users');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Ошибка при добавлении пользователя: ' . $e->getMessage());
         }
 
-        $this->addFlash('error', 'Пожалуйста, заполните все поля.');
         return $this->redirectToRoute('admin_users');
     }
 
     #[Route('/admin/users/edit/{id}', name: 'admin_edit_user', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request, EntityManagerInterface $em): Response
+    public function edit(int $id, Request $request): Response
     {
-        $user = $em->getRepository(User::class)->find($id);
-        if (!$user) {
-            throw $this->createNotFoundException('Пользователь не найден');
-        }
-
-        if ($request->isMethod('POST')) {
-            $user->setEmail($request->request->get('email'));
-            $user->setName($request->request->get('name'));
-
-            if ($password = $request->request->get('password')) {
-                $user->setPassword(password_hash($password, PASSWORD_DEFAULT)); // Если не используешь encoder
+        try {
+            if ($request->isMethod('POST')) {
+                $userRequest = UserRequest::fromRequest($request);
+                $this->userService->editUser($id, $userRequest);
+                $this->addFlash('success', 'Пользователь успешно обновлён!');
+                return $this->redirectToRoute('admin_users');
             }
 
-            // Обновление ролей
-            $selectedRoles = $request->request->all('roles');
-            $user->getGroups()->clear();
+            $user = $this->userService->getUserById($id);
 
-            if (!empty($selectedRoles)) {
-                $groupRepo = $em->getRepository(Group::class);
-                foreach ($selectedRoles as $roleId) {
-                    $role = $groupRepo->find($roleId);
-                    if ($role) {
-                        $user->addGroup($role);
-                    }
-                }
-            }
+            $groups = $this->userService->getAllGroups();
+            return $this->render('admin/users/edit_user.html.twig', [
+                'user' => $user,
+                'groups' => $groups
+            ]);
 
-            $em->flush();
-            $this->addFlash('success', 'Пользователь успешно обновлён!');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Ошибка: ' . $e->getMessage());
             return $this->redirectToRoute('admin_users');
         }
-
-        $groups = $em->getRepository(Group::class)->findAll();
-
-        return $this->render('admin/users/edit_user.html.twig', [
-            'user' => $user,
-            'groups' => $groups
-        ]);
     }
 
     #[Route('/admin/users/delete/{id}', name: 'admin_delete_user', methods: ['POST'])]
     public function delete(int $id): Response
     {
-        $result = $this->userService->deleteUser($id);
-        if ($result) {
-            $this->addFlash('success', 'Пользователь успешно удален!');
-        } else {
-            $this->addFlash('error', 'Пользователь не найден');
+        try {
+            if ($this->userService->deleteUser($id)) {
+                $this->addFlash('success', 'Пользователь успешно удален!');
+            } else {
+                $this->addFlash('error', 'Пользователь не найден');
+            }
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Ошибка при удалении пользователя: ' . $e->getMessage());
         }
 
         return $this->redirectToRoute('admin_users');
     }
 
     #[Route('/profile', name: 'profile')]
-    public function profile(Security $security, EntityManagerInterface $em): Response
+    public function profile(): Response
     {
-        $user = $security->getUser();
+        $user = $this->getUser();
         $roles = $user->getRoles();
 
         return $this->render('auth/user.html.twig', [
@@ -121,5 +97,4 @@ class UserController extends AbstractController
             'roles' => $roles,
         ]);
     }
-
 }
